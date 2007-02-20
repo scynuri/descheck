@@ -15,7 +15,7 @@ RM=rm -f
 # ############################################################
 CFLAGS_DEBUG:=-g -O2
 CFLAGS_DEFINES:=-DHAVE_CONFIG_H -DLOCALEDIR="\"/usr/local/share/locale\"" -Dbin_dummy_emulation=bin_vanilla_emulation -D_GNU_SOURCE
-CFLAGS_INCLUDES:= -I.  -I../bfd -I../include -I../intl
+CFLAGS_INCLUDES:= -I.  -I./bfd -I./include -I./intl
 CFLAGS_WARNINGS:= -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror 
 
 CFLAGS_COMPILE:= $(CFLAGS_DEFINES) $(CFLAGS_INCLUDES) $(CFLAGS_WARNINGS) $(CFLAGS_DEBUG)
