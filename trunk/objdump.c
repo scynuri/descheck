@@ -66,6 +66,7 @@
 #define	BYTES_IN_WORD	32
 #include "aout/aout64.h"
 
+#include "objdump.h"
 /* Exit status.  */
 static int exit_status = 0;
 
@@ -2894,12 +2895,11 @@ display_bfd (bfd *abfd)
       free (matching);
     }
 }
-void
-display_file (char *filename, char *target);
 
 void
 display_file (char *filename, char *target)
 {
+	printf("terget=[%s]\n", target);
   bfd *file;
   bfd *arfile = NULL;
 
@@ -2950,7 +2950,7 @@ int
 main1 (int argc, char **argv);
 
 int
-main1 (int argc, char **argv)
+main (int argc, char **argv)
 {
   int c;
   char *target = default_target;
