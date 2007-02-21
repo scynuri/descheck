@@ -6,9 +6,9 @@
 #include <fcntl.h>
 
 #include <elf.h>
-#include <dwarf.h>
+#include <libdwarf/dwarf.h>
 #include <libelf.h>
-#include <libdwarf.h>
+#include <libdwarf/libdwarf.h>
 
 typedef char * string;
 
