@@ -747,7 +747,7 @@ void print_die_and_children(Dwarf_Debug dbg, Dwarf_Die in_die_in,
 		/* child first: we are doing depth-first walk */
 		if (cdres == DW_DLV_OK) {
 			indent_level++;
-			//print_die_and_children(dbg, child, srcfiles, cnt);
+			print_die_and_children(dbg, child, srcfiles, cnt);
 			indent_level--;
 			if (indent_level == 0)
 				local_symbols_already_began = 0;
