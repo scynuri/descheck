@@ -203,7 +203,7 @@ int get_small_encoding_integer_and_name(Dwarf_Debug dbg,
 	char buf[100];		/* The strings are small. */
 	int vres = dwarf_formudata(attrib, &uval, err);
 
-	/*if (vres != DW_DLV_OK) {
+	if (vres != DW_DLV_OK) {
 		Dwarf_Signed sval = 0;
 
 		vres = dwarf_formsdata(attrib, &sval, err);
@@ -211,7 +211,7 @@ int get_small_encoding_integer_and_name(Dwarf_Debug dbg,
 			if (string_out != 0) {
 				snprintf(buf, sizeof(buf),
 					 "%s has a bad form.", attr_name);
-				*string_out = makename(buf);
+				//*string_out = makename(buf);
 			}
 			return vres;
 		}
@@ -221,7 +221,7 @@ int get_small_encoding_integer_and_name(Dwarf_Debug dbg,
 	}
 	if (string_out)
 		*string_out = val_as_string(dbg, (Dwarf_Half) uval);
-*/
+
 	return DW_DLV_OK;
 
 }
@@ -237,14 +237,14 @@ static void get_attr_value(Dwarf_Debug dbg, Dwarf_Half tag, Dwarf_Attribute attr
 	int i;
 	Dwarf_Half attr;
 	Dwarf_Off off;
-	Dwarf_Die die_for_check;
-	Dwarf_Half tag_for_check;
+	//Dwarf_Die die_for_check;
+	//Dwarf_Half tag_for_check;
 	Dwarf_Bool tempbool;
 	Dwarf_Addr addr = 0;
 	int fres;
 	int bres;
 	int wres;
-	int dres;
+	//int dres;
 	Dwarf_Half direct_form = 0;
 	char small_buf[100];
 
@@ -733,7 +733,7 @@ void print_die_and_children(Dwarf_Debug dbg, Dwarf_Die in_die_in,
 	Dwarf_Die child;
 	Dwarf_Die sibling;
 	Dwarf_Error err;
-	int tres;
+	//int tres;
 	int cdres;
 	Dwarf_Die in_die = in_die_in;
 
@@ -758,7 +758,7 @@ void print_die_and_children(Dwarf_Debug dbg, Dwarf_Die in_die_in,
 
 		cdres = dwarf_siblingof(dbg, in_die, &sibling, &err);
 		if (cdres == DW_DLV_OK) {
-			/*print_die_and_children(dbg, sibling, srcfiles, cnt); /*We
+			/* print_die_and_children(dbg, sibling, srcfiles, cnt); We
 			loop around to actually print this, rather than
 			recursing. Recursing is horribly wasteful of stack
 			space. */
