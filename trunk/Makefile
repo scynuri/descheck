@@ -7,12 +7,12 @@ LDFLAGS = -lelf  -ldwarf -L$(LIB_DIR)/libdwarf.a
 DEPS=esb.o descheck.o dwarf_names.o
 
 
-all: build
+all: $(TARGET)
 
 .c.o:
 	$(CC) $(CFLAGS) $<
 
-build:$(DEPS)
+build $(TARGET):$(DEPS)
 	$(CC) $(DEPS) -o $(TARGET) $(LDFLAGS)
 
 test:
