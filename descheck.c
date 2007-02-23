@@ -1,4 +1,5 @@
 #include "descheck.h"
+#include "call_graph.h"
 
 #define DIE_STACK_SIZE 50
 static Dwarf_Die die_stack[DIE_STACK_SIZE];
@@ -871,31 +872,18 @@ static int process_one_file(Elf * elf, char *file_name, int archive,
 	return 0;
 }
 
-int main(int argc, char **argv)
+
+int read_elf_dwarf_info(char * obj_fname)
 {
 	int f;
 	Elf_Cmd cmd;
 	Elf *arf, *elf;
 	int archive = 0;
-	
-	elf_version(EV_NONE);
-	if (elf_version(EV_CURRENT) == EV_NONE)
-	{
-		fprintf(stderr, "libelf.a out of date.\n");
-		exit(1);
-	}
-	
-	if (argc != 2)
-	{
-		fprintf(stderr, "Invalid args no %d.\n", argc);
-		exit(1);
-	}
-	
-	f = open(argv[1], O_RDONLY);
+	f = open(obj_fname, O_RDONLY);
 	if (f == -1)
 	{
-		fprintf(stderr, "Could not open file %s.\n", argv[1]);
-		exit(1);
+		fprintf(stderr, "Could not open file %s.\n", obj_fname);
+		return -1;
 	}
 	
 	cmd = ELF_C_READ;
@@ -921,18 +909,49 @@ int main(int argc, char **argv)
 				/* not a 64-bit obj either! */
 				/* dwarfdump is quiet when not an object */
 			} else {
-				process_one_file(elf, argv[1], archive,
+				process_one_file(elf, obj_fname, archive,
 						&config_file_data);
 			}
 #endif /* HAVE_ELF64_GETEHDR */
 		} else {
-			process_one_file(elf, argv[1], archive,
+			process_one_file(elf, obj_fname, archive,
 					 &config_file_data);
 		}
 		cmd = elf_next(elf);
 		elf_end(elf);
 	}
 	elf_end(arf);
+	return 0;	
+}
+
+
+
+int main(int argc, char **argv)
+{
+	int rc;
+	struct call_graph_t * gr;
+	elf_version(EV_NONE);
+	if (elf_version(EV_CURRENT) == EV_NONE)
+	{
+		fprintf(stderr, "libelf.a out of date.\n");
+		exit(1);
+	}
 	
-	return 1;
+	if (argc != 2)
+	{
+		fprintf(stderr, "Invalid args no %d.\n", argc);
+		exit(1);
+	}
+	
+	rc = read_elf_dwarf_info(argv[1]);
+	if(0 != rc)
+	{
+		fprintf(stderr, "Error read_elf_dwarf_info %d\n", rc);
+		return 1;
+	}
+	
+	compute_call_graph(argv[1], &gr);
+	print_call_graph(gr);
+	free_call_graph(gr);
+	return 0;
 }

@@ -21,15 +21,17 @@ runtests run:build
 			$(ECHO) "\t..... Failure"; \
 		else \
 			$(ECHO) "\t..... Success"; \
-		fi \
+		fi; \
+		../descheck ./$$TESTCASE; \
 	done
+	@true
 
 
 bintest_00:test_00_simple.o
 	$(CC) $(LDFLAGS) test_00_simple.o -o $@
 
-bintest_01:
-	@touch $@ && chmod -c 777 $@
+bintest_01:test_01_one_func.o
+	$(CC) $(LDFLAGS) test_01_one_func.o -o $@
 
 cleantests clean:
 	@$(RM) *.o bintest*  *~
