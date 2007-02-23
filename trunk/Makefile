@@ -7,8 +7,8 @@ NO_PRINT_DIR=--no-print-directory
 CFLAGS= -c -Wall
 LIB_DIR = /usr/lib
 TESTDIR = tests
-LDFLAGS = -lelf  -ldwarf -L$(LIB_DIR)/libdwarf.a
-DEPS=esb.o descheck.o dwarf_names.o
+LDFLAGS = -lelf  -ldwarf -L$(LIB_DIR)/libdwarf.a -lbfd
+DEPS=esb.o descheck.o dwarf_names.o call_graph.o
 
 
 all: $(TARGET)
