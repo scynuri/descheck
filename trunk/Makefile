@@ -8,7 +8,7 @@ CFLAGS= -c -Wall
 LIB_DIR = /usr/lib
 TESTDIR = tests
 LDFLAGS = -lelf  -ldwarf -L$(LIB_DIR)/libdwarf.a -lbfd
-DEPS=esb.o descheck.o dwarf_names.o call_graph.o
+DEPS=esb.o descheck.o dwarf_names.o call_graph.o log.o
 
 
 all: $(TARGET)
