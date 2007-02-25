@@ -2,7 +2,7 @@ RM=rm -f
 CC=gcc
 ECHO=echo
 ECHO_NO_NEWLINE=echo -n
-CFLAGS= -c -Wall -gdwarf-2
+CFLAGS= -c -Wall -O -gdwarf-2
 LDFLAGS=
 BIN_TESTS=bintest_00 bintest_01
 

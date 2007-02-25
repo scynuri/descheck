@@ -42,3 +42,4 @@ int log_message(char * fmt, ...)
 	fprintf(logfile, "\n");
 	return 0;
 }
+
